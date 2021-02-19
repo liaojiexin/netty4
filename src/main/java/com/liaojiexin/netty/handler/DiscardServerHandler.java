@@ -17,7 +17,7 @@ public class DiscardServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf in = (ByteBuf) msg;
         try {
-            while (in.isReadable()) {       //将接收到的数据打赢到控制台
+            while (in.isReadable()) {       //将接收到的数据打印到控制台
                 System.out.print((char) in.readByte());
                 System.out.flush();
             }

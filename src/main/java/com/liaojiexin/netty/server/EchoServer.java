@@ -61,6 +61,6 @@ public class EchoServer {
             port = Integer.parseInt(args[0]);
         }
 
-        new DiscardServer(port).run();
+        new EchoServer(port).run();
     }
 }

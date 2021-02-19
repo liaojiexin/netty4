@@ -60,6 +60,6 @@ public class TimeServer {
             port = Integer.parseInt(args[0]);
         }
 
-        new DiscardServer(port).run();
+        new TimeServer(port).run();
     }
 }
