@@ -1,8 +1,7 @@
 package com.liaojiexin.netty.server;
 
 import com.liaojiexin.netty.handler.DiscardServerHandler;
-import com.liaojiexin.netty.handler.EchoServerHandler;
-import com.liaojiexin.netty.server.DiscardServer;
+import com.liaojiexin.netty.handler.TimeServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -13,16 +12,16 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
- * @ClassName: EchoServer
+ * @ClassName: TimeServer
  * @Description: TODO
  * @version: 1.0
  * @author: liaojiexin
- * @date: 2021/2/19 16:10
+ * @date: 2021/2/19 16:19
  */
-public class EchoServer {
+public class TimeServer {
     private int port;
 
-    public EchoServer(int port) {
+    public TimeServer(int port) {
         this.port = port;
     }
 
@@ -36,7 +35,7 @@ public class EchoServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new EchoServerHandler());
+                            ch.pipeline().addLast(new TimeServerHandler());
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)          // (5)
@@ -56,7 +55,7 @@ public class EchoServer {
     }
 
     public static void main(String[] args) throws Exception {
-        int port = 8081;
+        int port = 8082;
         if (args.length > 0) {
             port = Integer.parseInt(args[0]);
         }
