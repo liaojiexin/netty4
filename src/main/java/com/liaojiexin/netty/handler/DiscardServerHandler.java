@@ -12,7 +12,7 @@ import io.netty.util.ReferenceCountUtil;
  * @author: liaojiexin
  * @date: 2021/2/19 14:55
  */
-public class EchoServerHandler extends ChannelInboundHandlerAdapter {
+public class DiscardServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf in = (ByteBuf) msg;
