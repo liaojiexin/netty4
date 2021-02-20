@@ -1,6 +1,7 @@
 package com.liaojiexin.netty.client;
 
 import com.liaojiexin.netty.handler.TimeClientHandler;
+import com.liaojiexin.netty.handler.TimeDecoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -31,7 +32,7 @@ public class TimeClient {
             b.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 public void initChannel(SocketChannel ch){
-                    ch.pipeline().addLast(new TimeClientHandler());
+                    ch.pipeline().addLast(new TimeDecoder(), new TimeClientHandler());
                 }
             });
 
