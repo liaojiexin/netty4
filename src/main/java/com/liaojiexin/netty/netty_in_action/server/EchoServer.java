@@ -31,7 +31,7 @@ public class EchoServer {
             System.err.println("Usage:"+EchoServer.class.getSimpleName()+"<port>");
         }
         int port=Integer.parseInt(args[0]);
-        new EchoServer(port).start();
+        new EchoServer(port).start();       //调用服务器start方法
     }
 
     public void start() throws Exception{
@@ -50,12 +50,16 @@ public class EchoServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
+                            //EchoServerHandler被标注为@Shareable，所以我们可以总是使用同样的实例
                             ch.pipeline().addLast(serverHandler);
                         }
                     });
+            //6.异步绑定服务器，调用sync方法阻塞等待知道绑定完成
             ChannelFuture channelFuture=bootstrap.bind().sync();
+            //7.获取Channel的CloseFuture，并且阻塞当前线程知道它完成
             channelFuture.channel().closeFuture().sync();
         }finally {
+            //8.关闭EventLoopGroup，释放所有的资源
             group.shutdownGracefully().sync();
         }
     }
