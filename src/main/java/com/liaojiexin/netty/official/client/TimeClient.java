@@ -1,7 +1,7 @@
-package com.liaojiexin.netty.client;
+package com.liaojiexin.netty.official.client;
 
-import com.liaojiexin.netty.handler.TimeClientHandler;
-import com.liaojiexin.netty.handler.TimeDecoder;
+import com.liaojiexin.netty.official.handler.TimeClientHandler;
+import com.liaojiexin.netty.official.handler.TimeDecoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

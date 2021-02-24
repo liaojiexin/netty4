@@ -1,8 +1,8 @@
-package com.liaojiexin.netty.server;
+package com.liaojiexin.netty.official.server;
 
-import com.liaojiexin.netty.handler.DiscardServerHandler;
-import com.liaojiexin.netty.handler.TimeServerHandler;
+import com.liaojiexin.netty.official.handler.DiscardServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
+
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -12,16 +12,13 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
- * @ClassName: TimeServer
- * @Description: TODO
- * @version: 1.0
- * @author: liaojiexin
- * @date: 2021/2/19 16:19
+ * Discards any incoming data.
  */
-public class TimeServer {
+public class DiscardServer {
+
     private int port;
 
-    public TimeServer(int port) {
+    public DiscardServer(int port) {
         this.port = port;
     }
 
@@ -35,7 +32,7 @@ public class TimeServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new TimeServerHandler());
+                            ch.pipeline().addLast(new DiscardServerHandler());
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)          // (5)
@@ -55,11 +52,11 @@ public class TimeServer {
     }
 
     public static void main(String[] args) throws Exception {
-        int port = 8082;
+        int port = 8080;
         if (args.length > 0) {
             port = Integer.parseInt(args[0]);
         }
 
-        new TimeServer(port).run();
+        new DiscardServer(port).run();
     }
 }

@@ -1,4 +1,4 @@
-package com.liaojiexin.netty.entity;
+package com.liaojiexin.netty.official.entity;
 
 import java.util.Date;
 
