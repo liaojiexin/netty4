@@ -42,8 +42,11 @@ public class EchoServer {
             //2.创建ServerBootstrap
             ServerBootstrap bootstrap=new ServerBootstrap();
             bootstrap.group(group)
+                    //3.指定所使用的NIO传输Channel
                     .channel(NioServerSocketChannel.class)
+                    //4.使用指定的端口设置套接字地址
                     .localAddress(new InetSocketAddress(port))
+                    //5.添加一个EchoServerHandler到子Channel的ChannelPipeline
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
