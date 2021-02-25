@@ -1,4 +1,4 @@
-package com.liaojiexin.netty.official.handler;
+package com.liaojiexin.netty.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

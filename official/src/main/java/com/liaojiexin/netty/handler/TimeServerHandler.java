@@ -1,4 +1,4 @@
-package com.liaojiexin.netty.official.handler;
+package com.liaojiexin.netty.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;

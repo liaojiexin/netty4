@@ -1,6 +1,6 @@
-package com.liaojiexin.netty.official.server;
+package com.liaojiexin.netty.server;
 
-import com.liaojiexin.netty.official.handler.TimeServerHandler;
+import com.liaojiexin.netty.handler.TimeServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
