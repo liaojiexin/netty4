@@ -26,7 +26,7 @@
         </dependency>
     </dependencies>
 
-    <build>
+    <!--<build>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -40,10 +40,10 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!--指定main文件,不指定会报错-->
+                    &lt;!&ndash;指定main文件,不指定会报错&ndash;&gt;
                     <mainClass>EchoClient</mainClass>
                 </configuration>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 </project>
