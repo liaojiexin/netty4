@@ -1,4 +1,4 @@
-package com.liaojiexin.netty.netty_in_action.handler;
+package com.liaojiexin.netty.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

@@ -1,6 +1,6 @@
-package com.liaojiexin.netty.netty_in_action.client;
+package com.liaojiexin.netty.client;
 
-import com.liaojiexin.netty.netty_in_action.handler.EchoClientHandler;
+import com.liaojiexin.netty.handler.EchoClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

@@ -1,6 +1,6 @@
-package com.liaojiexin.netty.netty_in_action.server;
+package com.liaojiexin.netty.server;
 
-import com.liaojiexin.netty.netty_in_action.handler.EchoServerHandler;
+import com.liaojiexin.netty.handler.EchoServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
