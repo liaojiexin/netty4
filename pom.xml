@@ -5,7 +5,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>official</module>
-        <module>chapter2</module>
+        <module>chapter2-server</module>
+        <module>chapter2-client</module>
     </modules>
 
     <parent>
