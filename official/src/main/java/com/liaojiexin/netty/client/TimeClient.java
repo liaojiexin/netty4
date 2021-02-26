@@ -16,7 +16,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  * @Description: TODO
  * @version: 1.0
  * @author: liaojiexin
- * @date: 2021/2/19 17:31
+ * @date: 2021/2/19 17:32
  */
 public class TimeClient {
     public static void main(String[] args) throws Exception{
