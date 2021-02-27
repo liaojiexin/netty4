@@ -7,6 +7,7 @@
         <module>official</module>
         <module>chapter2-server</module>
         <module>chapter2-client</module>
+        <module>chapter4-server</module>
     </modules>
 
     <parent>
