@@ -8,7 +8,14 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
- 
+
+/**
+ * @Author liaojiexin
+ * @Description 
+ * @Date 2021/3/16 13:53
+ * @Param 
+ * @return 
+ **/
 //TextWebSocketFrame：处理消息的handler，在Netty中用于处理文本的对象，frames是消息的载体
 public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>{
  
