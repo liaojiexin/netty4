@@ -8,7 +8,7 @@
         <module>chapter2-server</module>
         <module>chapter2-client</module>
         <module>chapter4-server</module>
-        <module>IM</module>
+        <module>IM-simple</module>
     </modules>
 
     <parent>
