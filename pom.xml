@@ -9,6 +9,7 @@
         <module>chapter2-client</module>
         <module>chapter4-server</module>
         <module>IM-simple</module>
+        <module>VM</module>
     </modules>
 
     <parent>
