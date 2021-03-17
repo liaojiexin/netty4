@@ -18,7 +18,7 @@ import java.time.LocalDate;
  * @return 
  **/
 //TextWebSocketFrame：处理消息的handler，在Netty中用于处理文本的对象，frames是消息的载体
-public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>{
+public class ServerHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>{
  
 	//用于记录和管理所有客户端的channel，可以把相应的channel保存到一整个组中
 	//DefaultChannelGroup：用于对应ChannelGroup，进行初始化

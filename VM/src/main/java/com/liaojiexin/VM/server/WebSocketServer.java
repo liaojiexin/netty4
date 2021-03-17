@@ -1,6 +1,6 @@
 package com.liaojiexin.VM.server;
 
-import com.liaojiexin.VM.handler.ChatHandler;
+import com.liaojiexin.VM.handler.ServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -59,7 +59,7 @@ public class WebSocketServer {
                             channelPipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
 
                             //添加自动handler，读取客户端消息并进行处理，处理完毕之后将相应信息传输给对应客户端
-                            channelPipeline.addLast(new ChatHandler());
+                            channelPipeline.addLast(new ServerHandler());
                         }
                     });
             //绑定端口并以同步方式进行使用
