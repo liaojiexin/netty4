@@ -8,7 +8,6 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
-import org.springframework.ui.Model;
 
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
