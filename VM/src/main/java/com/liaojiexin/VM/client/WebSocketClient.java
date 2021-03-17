@@ -8,8 +8,6 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
-
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -94,15 +92,6 @@ public class WebSocketClient {
      * 向服务端发送消息
      */
     private void sendData() {
-        Scanner sc= new Scanner(System.in);
-        for (int i = 0; i < 1000; i++) {
 
-            if(channel != null && channel.isActive()){
-                //获取一个键盘扫描器
-                String nextLine = sc.nextLine();
-
-//                channel.writeAndFlush();
-            }
-        }
     }
 }

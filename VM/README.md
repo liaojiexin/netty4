@@ -10,7 +10,7 @@
  - 重连
  - 心跳机制
  - UDP
- - RTMP
+ - RTCP
  
 2、GraphQL
 
