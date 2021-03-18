@@ -5,6 +5,13 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 
+/**
+ * @Author liaojiexin
+ * @Description 自定义协议编码器
+ * @Date 2021/3/18 15:21
+ * @Param
+ * @return
+ **/
 public class CustomDecoder extends LengthFieldBasedFrameDecoder {
     
 

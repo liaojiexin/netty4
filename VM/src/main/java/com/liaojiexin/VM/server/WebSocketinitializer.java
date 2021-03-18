@@ -1,14 +1,9 @@
 package com.liaojiexin.VM.server;
 
-import com.liaojiexin.VM.code.MsgPckDecode;
-import com.liaojiexin.VM.handler.ServerHandler;
+import com.liaojiexin.VM.code.ProtocolSelectorHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.handler.codec.http.HttpObjectAggregator;
-import io.netty.handler.codec.http.HttpServerCodec;
-import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
-import io.netty.handler.stream.ChunkedWriteHandler;
 
 /**
  * @ClassName: WebSocketinitializer
@@ -23,7 +18,7 @@ public class WebSocketinitializer extends ChannelInitializer<SocketChannel> {
         //从Channel中获取对应的pipeline
         ChannelPipeline channelPipeline = ch.pipeline();
         //多协议解码器，进行协议判断在做相对应解码
-        channelPipeline.addLast(new MsgPckDecode());
+        channelPipeline.addLast(new ProtocolSelectorHandler());
 
     }
 

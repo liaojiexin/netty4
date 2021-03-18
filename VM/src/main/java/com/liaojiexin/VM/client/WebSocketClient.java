@@ -1,6 +1,6 @@
 package com.liaojiexin.VM.client;
 
-import com.liaojiexin.VM.code.MsgPckDecode;
+import com.liaojiexin.VM.code.ProtocolSelectorHandler;
 import com.liaojiexin.VM.code.MsgPckEncode;
 import com.liaojiexin.VM.handler.ClientHandler;
 import io.netty.bootstrap.Bootstrap;
@@ -46,7 +46,7 @@ public class WebSocketClient {
 
                         pipeline.addLast(new IdleStateHandler(0,0,5));
 
-                        pipeline.addLast(new MsgPckDecode());
+                        pipeline.addLast(new ProtocolSelectorHandler());
 
                         pipeline.addLast(new MsgPckEncode());
 

@@ -17,11 +17,11 @@ import io.netty.util.CharsetUtil;
 import java.util.List;
 
 /**
- * 解码器
+ * 多协议选择解码器
  * @author Administrator
  *
  */
-public class MsgPckDecode extends ByteToMessageDecoder {
+public class ProtocolSelectorHandler extends ByteToMessageDecoder {
 
     /**
      * websocket定义请求行前缀
