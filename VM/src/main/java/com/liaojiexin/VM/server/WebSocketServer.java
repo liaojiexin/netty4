@@ -24,6 +24,7 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 public class WebSocketServer {
 
     public static void main(String[] args) throws Exception{
+        //定义线程组
         EventLoopGroup bossGroup =new NioEventLoopGroup();
         EventLoopGroup workGroup =new NioEventLoopGroup();
 
@@ -31,6 +32,7 @@ public class WebSocketServer {
             ServerBootstrap serverBootstrap=new ServerBootstrap();
             serverBootstrap.group(bossGroup,workGroup)
                     .channel(NioServerSocketChannel.class)
+                    //针对subGroup做的子处理器，childHandler针对WebSokect的初始化器
                     .childHandler(new WebSocketinitializer());
             //绑定端口并以同步方式进行使用
             ChannelFuture channelFuture = serverBootstrap.bind(10086).sync();
