@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @ClassName: Client
  * @Description: TODO
- * @version: 1.0    客户端
+ * @version: 1.0    客户端引导类
  * @author: liaojiexin
  * @date: 2021/3/17 15:30
  */

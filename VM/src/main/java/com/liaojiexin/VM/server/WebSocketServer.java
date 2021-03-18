@@ -17,7 +17,7 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 /**
  * @ClassName: WebSocketServer
  * @Description: TODO
- * @version: 1.0
+ * @version: 1.0      服务端引导类
  * @author: liaojiexin
  * @date: 2021/3/16 13:45
  */
