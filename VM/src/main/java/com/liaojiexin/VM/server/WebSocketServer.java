@@ -36,12 +36,12 @@ public class WebSocketServer {
                     //针对subGroup做的子处理器，childHandler针对WebSokect的初始化器
                     .childHandler(new WebSocketinitializer());
             //绑定端口并以同步方式进行使用
-            ChannelFuture channelFuture = serverBootstrap.bind(10086).sync();
+            ChannelFuture channelFuture = serverBootstrap.bind(10099).sync();
 
             //针对channelFuture，进行相应的监听
             channelFuture.channel().closeFuture().sync();
 
-            //UDP
+/*            //UDP
             Bootstrap bootstrap = new Bootstrap();//udp不能使用ServerBootstrap
             bootstrap.group(workGroup);
             bootstrap.channel(NioDatagramChannel.class);//设置UDP通道
@@ -51,7 +51,7 @@ public class WebSocketServer {
             bootstrap.option(ChannelOption.SO_SNDBUF, 1024 * 1024);// 设置UDP写缓冲区为1M
             bootstrap.handler(new UdpHandler());
 
-            channelFuture=bootstrap.bind(10086).sync();
+            channelFuture=bootstrap.bind(10099).sync();*/
 
         }finally {
             bossGroup.shutdownGracefully();
