@@ -24,4 +24,5 @@ B/S架构，客户端访问服务端，再服务端随机生成一个6位数的�
 
 ## 参考
 1、[netty 实现长连接，心跳机制，以及重连](https://blog.csdn.net/weixin_41558061/article/details/80582996)<br>
-2、[SpringBoot+Netty开发IM即时通讯系列（二）](https://blog.csdn.net/qq_26975307/article/details/85051833?spm=1001.2014.3001.5502)
+2、[SpringBoot+Netty开发IM即时通讯系列（二）](https://blog.csdn.net/qq_26975307/article/details/85051833?spm=1001.2014.3001.5502)<br>
+3、[Netty笔记之九: Netty多种通讯协议支持](https://www.jianshu.com/p/9466c24beaa2)
