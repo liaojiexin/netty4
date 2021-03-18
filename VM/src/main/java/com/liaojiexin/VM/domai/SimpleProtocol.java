@@ -1,6 +1,12 @@
 package com.liaojiexin.VM.domai;
 
-
+/**
+ * @Author liaojiexin
+ * @Description 自定义协议
+ * @Date 2021/3/18 15:11
+ * @Param
+ * @return
+ **/
 public class SimpleProtocol {
     /**
      * 协议类型
