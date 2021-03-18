@@ -17,4 +17,11 @@ public class UdpHandler extends SimpleChannelInboundHandler<DatagramPacket> {
     protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket msg) throws Exception {
 
     }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause)
+            throws Exception{
+        ctx.close();
+        cause.printStackTrace();
+    }
 }

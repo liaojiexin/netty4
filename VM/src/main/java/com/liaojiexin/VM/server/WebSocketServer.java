@@ -51,6 +51,7 @@ public class WebSocketServer {
             bootstrap.option(ChannelOption.SO_SNDBUF, 1024 * 1024);// 设置UDP写缓冲区为1M
             bootstrap.handler(new UdpHandler());
 
+            channelFuture=bootstrap.bind(10086).sync();
 
         }finally {
             bossGroup.shutdownGracefully();
