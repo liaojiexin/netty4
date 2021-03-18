@@ -22,7 +22,7 @@
         init: function(){
             //首先判断浏览器是否支持WebSocket
             if (window.WebSocket){
-                CHAT.socket = new WebSocket("ws://localhost:10086/ws");
+                CHAT.socket = new WebSocket("ws://localhost:10099/ws");
                 CHAT.socket.onopen = function(){
                     console.log("客户端与服务端建立连接成功");
                 },

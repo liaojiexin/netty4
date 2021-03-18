@@ -4,12 +4,14 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
+import java.time.LocalDate;
+
 public class MyTextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
 
         System.out.println(String.format("收到websocket客户端[%s]消息:", ctx.channel().remoteAddress()+":"+ctx.channel().id().asLongText()) + msg.text());
-        ctx.channel().writeAndFlush(new TextWebSocketFrame(  msg.text()));
+        ctx.channel().writeAndFlush(new TextWebSocketFrame("【服务器于"+LocalDate.now()+"接收到消息：】，消息内容为："+ msg.text()));
     }
 
 

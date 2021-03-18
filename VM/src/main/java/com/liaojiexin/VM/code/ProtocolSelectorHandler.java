@@ -12,6 +12,7 @@ import io.netty.handler.codec.MessageToMessageDecoder;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
+import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.util.CharsetUtil;
 
 import java.util.List;
@@ -113,8 +114,13 @@ public class ProtocolSelectorHandler extends ByteToMessageDecoder {
      */
     private void addHTTPHandlers(ChannelPipeline pipeline) {
         pipeline.addLast(new HttpServerCodec());
-        pipeline.addLast(new HttpObjectAggregator(8192));
-        pipeline.addLast(new MyHttpServerHandler());
+        //在Http中有一些数据流的传输，那么数据流有大有小，如果说有一些相应的大数据流处理的话，需要在此添加
+        //ChunkedWriteHandler：为一些大数据流添加支持
+        pipeline.addLast(new ChunkedWriteHandler());
+        //UdineHttpMessage进行处理，也就是会用到request以及response
+        //HttpObjectAggregator：聚合器，聚合了FullHTTPRequest、FullHTTPResponse。。。，当你不想去管一些HttpMessage的时候，直接把这个handler丢到管道中，让Netty自行处理即可
+        pipeline.addLast(new HttpObjectAggregator(2048*64));
+//        pipeline.addLast(new MyHttpServerHandler());
 
     }
 }
