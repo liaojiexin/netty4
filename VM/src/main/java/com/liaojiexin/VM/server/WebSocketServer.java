@@ -1,8 +1,11 @@
 package com.liaojiexin.VM.server;
 
+import com.liaojiexin.VM.handler.UdpHandler;
+import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioDatagramChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
@@ -32,7 +35,7 @@ public class WebSocketServer {
             //针对channelFuture，进行相应的监听
             channelFuture.channel().closeFuture().sync();
 
-/*            //UDP
+            //UDP
             Bootstrap bootstrap = new Bootstrap();//udp不能使用ServerBootstrap
             bootstrap.group(workGroup);
             bootstrap.channel(NioDatagramChannel.class);//设置UDP通道
@@ -42,7 +45,7 @@ public class WebSocketServer {
             bootstrap.option(ChannelOption.SO_SNDBUF, 1024 * 1024);// 设置UDP写缓冲区为1M
             bootstrap.handler(new UdpHandler());
 
-            channelFuture=bootstrap.bind(10099).sync();*/
+            channelFuture=bootstrap.bind(10099).sync();
 
         }finally {
             bossGroup.shutdownGracefully();
