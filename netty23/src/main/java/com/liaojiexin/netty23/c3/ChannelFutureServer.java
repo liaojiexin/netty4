@@ -17,7 +17,7 @@ import java.nio.charset.Charset;
  * @Date 10:08 下午 2023/1/16
  **/
 @Slf4j
-public class ChannelServer {
+public class ChannelFutureServer {
     public static void main(String[] args) {
         new ServerBootstrap()   //启动器
             .group(new NioEventLoopGroup()) //事件循环组

@@ -19,7 +19,7 @@ import java.net.InetSocketAddress;
  * @Date 10:08 下午 2023/1/16
  **/
 @Slf4j
-public class ChannelClient {
+public class ChannelFutureClient {
     public static void main(String[] args) throws InterruptedException {
         //2.带有Future、Promise的类型都是和异步方法配套使用的，用来处理结果
         ChannelFuture channelFuture = new Bootstrap()
