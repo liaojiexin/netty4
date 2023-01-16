@@ -42,8 +42,8 @@ public class EventLoopClient {
         System.out.println();
 
         //也可以不用断点，使用下面语句直接发送
-        channel.writeAndFlush("111");
-        channel.writeAndFlush("222");
+//        channel.writeAndFlush("111");
+//        channel.writeAndFlush("222");
         /**
          * 发送后，服务器端那边的结果如下，可以看见不过发送几次，都是nioEventLoopGroup-2-2这个事件循环对象进行处理，
          * 也就验证了前面所说的，一旦某个eventloop负责某个channel，他就负责到底(绑定)，可以再起另一个客户端进行对比
@@ -51,5 +51,12 @@ public class EventLoopClient {
          * 18:26:07.566 [nioEventLoopGroup-2-2] DEBUG com.liaojiexin.netty23.c2.EventLoopServer - 111
          */
 
+        //测试EvnetLoop分工细化2
+        channel.writeAndFlush("111");
+        /**
+         * 发送后的结果
+         * 20:48:59.260 [nioEventLoopGroup-4-2] DEBUG com.liaojiexin.netty23.c2.EventLoopServer - 111
+         * 20:48:59.260 [defaultEventLoop-1-1] DEBUG com.liaojiexin.netty23.c2.EventLoopServer - 111
+         */
     }
 }
