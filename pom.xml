@@ -10,6 +10,7 @@
         <module>chapter4-server</module>
         <module>IM-simple</module>
         <module>VM</module>
+        <module>netty23</module>
     </modules>
 
     <parent>
