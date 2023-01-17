@@ -3,11 +3,14 @@ package com.liaojiexin.netty23.c3;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
@@ -30,6 +33,7 @@ public class ChannelFutureCloseClient {
                 .handler(new ChannelInitializer<NioSocketChannel>() {
                     @Override   //在连接建立后被调用，做一个初始化的操作
                     protected void initChannel(NioSocketChannel ch) throws Exception {
+                        ch.pipeline().addLast(new LoggingHandler(LogLevel.DEBUG));  //netty提供的打印日志，加入这一行代码就会打印出提供好的日志
                         ch.pipeline().addLast(new StringEncoder()); //编码，把字符串转化为ByteBuf
                     }
                 })
@@ -51,5 +55,34 @@ public class ChannelFutureCloseClient {
         },"input").start();
         //写在这里是错误的，因为这里是主线程，而上面的关闭操作是另一个线程，所以没办法在关闭channel以后才做处理
         //log.debug("处理关闭channel后的操作");
+
+
+        /**
+         * 在上面加入ch.pipeline().addLast(new LoggingHandler(LogLevel.DEBUG));  //netty提供的打印日志，加入这一行代码就会打印出提供好的日志
+         * 然后在客户端输入q，这样就会关闭channel，然后打印出下面的内容，可以看到先执行了处理关闭channel后的操作，再关闭了channel，而且两个操作是
+         * 不一样的线程做处理的，所以写在new Thread里面的log.debug("处理关闭channel后的操作");也是不对的。
+         *
+         * 10:59:30.813 [input] DEBUG com.liaojiexin.netty23.c3.ChannelFutureCloseClient - 处理关闭channel后的操作
+         * 10:59:30.815 [nioEventLoopGroup-2-1] DEBUG io.netty.handler.logging.LoggingHandler - [id: 0x9a660589, L:/127.0.0.1:51661 - R:localhost/127.0.0.1:8080] CLOSE
+         */
+
+        //正确处理关闭后操作
+        //利用channel获取CloseFuture对象，这个对象的作用就是来处理关闭后的操作。有两种方式:1.同步处理关闭；2.异步处理关闭
+        ChannelFuture closeFuture=channel.closeFuture();
+
+        //1.同步处理关闭,即当前线程(主线程)处理关闭后的操作
+        /*log.debug("等待关闭中....");
+        closeFuture.sync(); //这里主线程会阻塞住直到，channel关闭
+        log.debug("处理关闭channel后的操作");*/
+
+
+        //2.异步处理关闭,即其他线程去处理关闭后的操作
+        closeFuture.addListener(new ChannelFutureListener() {
+            @Override
+            public void operationComplete(ChannelFuture channelFuture) throws Exception {
+                log.debug("处理关闭channel后的操作");
+            }
+        });
+
     }
 }
