@@ -27,8 +27,9 @@ public class ChannelFutureCloseClient {
 
     //需求:在客户端控制台输入值，然后发送给服务端，输入的值为"q"则表示退出发送，然后关闭通道，但是想要在关闭channel通道后做一些善后工作。
     public static void main(String[] args) throws InterruptedException {
+        NioEventLoopGroup group = new NioEventLoopGroup();
         ChannelFuture channelFuture=new Bootstrap()
-                .group(new NioEventLoopGroup())
+                .group(group)
                 .channel(NioSocketChannel.class)
                 .handler(new ChannelInitializer<NioSocketChannel>() {
                     @Override   //在连接建立后被调用，做一个初始化的操作
@@ -76,11 +77,17 @@ public class ChannelFutureCloseClient {
         log.debug("处理关闭channel后的操作");*/
 
 
-        //2.异步处理关闭,即其他线程去处理关闭后的操作
+        //2.异步处理关闭,即让关闭channel的线程去处理关闭后的操作
         closeFuture.addListener(new ChannelFutureListener() {
             @Override
             public void operationComplete(ChannelFuture channelFuture) throws Exception {
                 log.debug("处理关闭channel后的操作");
+                /**
+                 * 如果不加入下面的EventLoopGroup关闭线程的代码，会发现，即使关闭了channel，这个程序还在运行。
+                 * 这是因为EventLoopGroup(事件循环组)里面还有其他线程在运行
+                 */
+                group.shutdownGracefully(); //优雅的关闭EventLoopGroup里面的线程(优雅的意思就是会把没发送的信息发送掉等等一些操作后)
+                //group.shutdown(); //强制关闭EventLoopGroup里面的线程，可能会造成数据丢失等问题。
             }
         });
 
