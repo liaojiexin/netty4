@@ -45,9 +45,9 @@ public class TestByteBuf {
         int length=buf.readableBytes();
         int rows=length/16+(length%15==0?0:1)+4;
         StringBuilder stringBuilder=new StringBuilder(rows*80*2)
-                .append("read index:").append(buf.readerIndex())
-                .append("write index:").append(buf.writerIndex())
-                .append("capacity").append(buf.capacity())
+                .append(" read index:").append(buf.readerIndex())
+                .append(" write index:").append(buf.writerIndex())
+                .append(" capacity").append(buf.capacity())
                 .append(NEWLINE);
         appendPrettyHexDump(stringBuilder,buf);
         System.out.println(stringBuilder.toString());
