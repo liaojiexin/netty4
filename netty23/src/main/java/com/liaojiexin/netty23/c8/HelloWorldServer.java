@@ -24,7 +24,7 @@ public class HelloWorldServer {
             //调整系统的接收缓冲器(滑动窗口)，一般不用设置，现在的系统很智能会根据发送方和接收方环境定一个合适的值
             //serverBootstrap.option(ChannelOption.SO_RCVBUF,2);  //设置接收缓冲区，为了让半包想象更加明显
             //调整netty的接收缓冲区(bytebuf),这里最小只能为16(16的整数)
-            serverBootstrap.childOption(ChannelOption.RCVBUF_ALLOCATOR,new AdaptiveRecvByteBufAllocator(16,16,16)); //效果同上，设置接收缓冲区，为了让半包想象更加明显
+            //serverBootstrap.childOption(ChannelOption.RCVBUF_ALLOCATOR,new AdaptiveRecvByteBufAllocator(16,16,16)); //效果同上，设置接收缓冲区，为了让半包想象更加明显
             serverBootstrap.group(boss,worker).channel(NioServerSocketChannel.class)
                     .childHandler(new ChannelInitializer<NioSocketChannel>() {
                         @Override   //初始化
