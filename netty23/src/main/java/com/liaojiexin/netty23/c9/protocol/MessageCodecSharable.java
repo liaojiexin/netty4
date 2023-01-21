@@ -4,7 +4,7 @@ import com.liaojiexin.netty23.c9.message.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.ByteToMessageCodec;
+import io.netty.handler.codec.MessageToMessageCodec;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.ByteArrayInputStream;
@@ -14,14 +14,14 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 /**
- * @ClassName MessageCodec
- * @Description TODO    自定义编码解码器，继承了ByteToMessageCodec方法，里面有两个实现方法
+ * @ClassName MessageCodecSharable
+ * @Description TODO
  * @Author liao
- * @Date 1:39 下午 2023/1/21
+ * @Date 5:58 下午 2023/1/21
  **/
 @Slf4j
-//@ChannelHandler.Sharable  //ByteToMessageCodec父类做了限制不允许加改注解
-public class MessageCodec extends ByteToMessageCodec<Message> {
+@ChannelHandler.Sharable //这里可以用
+public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message> {
 
     /**
      * 自定义协议的几个要素:
@@ -34,8 +34,9 @@ public class MessageCodec extends ByteToMessageCodec<Message> {
      * - 消息正文
      */
 
-    @Override      //编码器
-    protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) throws Exception {
+    @Override
+    protected void encode(ChannelHandlerContext ctx, Message msg, List<Object> outList) throws Exception {
+        ByteBuf out=ctx.alloc().buffer();
         //1.4个字节长度的魔数,客户端和服务器端约定好
         out.writeBytes(new byte[]{1,2,3,4});
         //2.1个字节长度的版本
@@ -57,10 +58,10 @@ public class MessageCodec extends ByteToMessageCodec<Message> {
         out.writeInt(bytes.length);
         //8.写入内容
         out.writeBytes(bytes);
-
+        outList.add(out);
     }
 
-    @Override   //解码器，对应上面的编码器
+    @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         //获取魔数
         int magicNum=in.readInt();
