@@ -1,4 +1,4 @@
-package com.liaojiexin.netty23.c10.session;
+package com.liaojiexin.netty23.c10.server.session;
 
 import io.netty.channel.Channel;
 

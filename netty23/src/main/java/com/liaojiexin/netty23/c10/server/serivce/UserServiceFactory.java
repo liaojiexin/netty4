@@ -1,4 +1,4 @@
-package com.liaojiexin.netty23.c10.server;
+package com.liaojiexin.netty23.c10.server.serivce;
 
 public abstract class UserServiceFactory {
 

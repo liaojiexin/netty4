@@ -1,4 +1,4 @@
-package com.liaojiexin.netty23.c10.server;
+package com.liaojiexin.netty23.c10.server.serivce;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
