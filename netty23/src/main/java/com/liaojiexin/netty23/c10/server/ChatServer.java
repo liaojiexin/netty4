@@ -21,7 +21,7 @@ public class ChatServer {
         LoggingHandler LOGGING_HANDLER = new LoggingHandler(LogLevel.DEBUG);
         MessageCodecSharable MESSAGE_CODEC = new MessageCodecSharable();
         LoginRequestMessageHandler LOGIN_HANDLER = new LoginRequestMessageHandler();
-        ChatRequestMessageHandler Chat_HANDLER = new ChatRequestMessageHandler();
+        ChatRequestMessageHandler CHAT_HANDLER = new ChatRequestMessageHandler();
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.channel(NioServerSocketChannel.class);
@@ -34,7 +34,7 @@ public class ChatServer {
                     ch.pipeline().addLast(MESSAGE_CODEC);
                     //这里用SimpleChannelInboundHandler专门来处理LoginRequestMessage
                     ch.pipeline().addLast(LOGIN_HANDLER);   //处理登录操作
-                    ch.pipeline().addLast(Chat_HANDLER);   //处理发送消息操作
+                    ch.pipeline().addLast(CHAT_HANDLER);   //处理发送消息操作
                 }
             });
             Channel channel = serverBootstrap.bind(8080).sync().channel();
@@ -46,5 +46,4 @@ public class ChatServer {
             worker.shutdownGracefully();
         }
     }
-
 }
