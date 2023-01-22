@@ -1,6 +1,6 @@
 package com.liaojiexin.netty23.c10.protocol;
 
-import com.liaojiexin.netty23.c9.message.Message;
+import com.liaojiexin.netty23.c10.message.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
