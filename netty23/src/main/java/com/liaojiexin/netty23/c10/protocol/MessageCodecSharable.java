@@ -1,5 +1,6 @@
 package com.liaojiexin.netty23.c10.protocol;
 
+import com.liaojiexin.netty23.c10.config.Config;
 import com.liaojiexin.netty23.c10.message.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
@@ -42,7 +43,8 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message
         //2.1个字节长度的版本
         out.writeByte(1);
         //3.1个字节长度的序列化方法。自己定义成0表示用jdk，1表示用json
-        out.writeByte(0);   //这里暂时用jdk
+        //out.writeByte(0);   //这里暂时用jdk
+        out.writeByte(Config.getSerializerAlgorithm().ordinal());
         //4.1个字节长度表示指令类型
         out.writeByte(msg.getMessageType());
         //5.4个字节长度表示请求序号
@@ -50,10 +52,12 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message
         //无意义，上面加起来全部15个字节，一般设置为2的整数倍，所以我们再加上一个字节做为填充
         out.writeByte(0xff);
         //6.获取内容的字节数组，序列化
-        ByteArrayOutputStream bos=new ByteArrayOutputStream();
+        /*ByteArrayOutputStream bos=new ByteArrayOutputStream();
         ObjectOutputStream oos=new ObjectOutputStream(bos);
         oos.writeObject(msg);
-        byte[] bytes=bos.toByteArray();
+        byte[] bytes=bos.toByteArray();*/
+        //这里把上面的序列化代码提取到Serializer接口中
+        byte[] bytes = Config.getSerializerAlgorithm().serialize(msg);
         //7.4个字节长度表示内容长度
         out.writeInt(bytes.length);
         //8.写入内容
@@ -67,7 +71,7 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message
         int magicNum=in.readInt();
         //获取版本号
         byte version = in.readByte();
-        //获取序列化方法
+        //获取序列化方法 0表示jdk，1表示json
         byte serializerType = in.readByte();
         //获取指令类型
         byte messageType = in.readByte();
@@ -80,9 +84,15 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message
         //获取内容，反序列化
         byte[] bytes=new byte[length];
         in.readBytes(bytes,0,length);//读取in到bytes字节数组里面，从0开始读length长度
-        ByteArrayInputStream bis=new ByteArrayInputStream(bytes);
+        /*ByteArrayInputStream bis=new ByteArrayInputStream(bytes);
         ObjectInputStream ois=new ObjectInputStream(bis);
-        Message message = (Message) ois.readObject();
+        Message message = (Message) ois.readObject();*/
+        //这里把上面反序列化的代码提取到Serializer接口中
+        // 找到反序列化算法
+        Serializer.Algorithm algorithm = Serializer.Algorithm.values()[serializerType];
+        // 确定具体消息类型
+        Class<?> messageClass = Message.getMessageClass(messageType);
+        Object message = algorithm.deserialize(messageClass, bytes);
         //最后记得要把解码后的信息填到out这样才能传递给下个handler
         out.add(message);
 
