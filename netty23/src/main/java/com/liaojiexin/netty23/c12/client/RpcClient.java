@@ -1,10 +1,12 @@
 package com.liaojiexin.netty23.c12.client;
 
 import com.liaojiexin.netty23.c12.client.handler.RpcResponseMessageHandler;
+import com.liaojiexin.netty23.c12.message.RpcRequestMessage;
 import com.liaojiexin.netty23.c12.protocol.MessageCodecSharable;
 import com.liaojiexin.netty23.c12.protocol.ProcotolFrameDecoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
@@ -19,8 +21,6 @@ public class RpcClient {
         NioEventLoopGroup group = new NioEventLoopGroup();
         LoggingHandler LOGGING_HANDLER = new LoggingHandler(LogLevel.DEBUG);
         MessageCodecSharable MESSAGE_CODEC = new MessageCodecSharable();
-        
-        // rpc 响应消息处理器，待实现
         RpcResponseMessageHandler RPC_HANDLER = new RpcResponseMessageHandler();
         try {
             Bootstrap bootstrap = new Bootstrap();
@@ -36,6 +36,21 @@ public class RpcClient {
                 }
             });
             Channel channel = bootstrap.connect("localhost", 8080).sync().channel();
+
+            ChannelFuture future = channel.writeAndFlush(new RpcRequestMessage(
+                    1,
+                    "cn.itcast.server.service.HelloService",
+                    "sayHello",
+                    String.class,
+                    new Class[]{String.class},
+                    new Object[]{"张三"}
+            )).addListener(promise -> {
+                if (!promise.isSuccess()) {
+                    Throwable cause = promise.cause();
+                    log.error("error", cause);
+                }
+            });
+
             channel.closeFuture().sync();
         } catch (Exception e) {
             log.error("client error", e);
