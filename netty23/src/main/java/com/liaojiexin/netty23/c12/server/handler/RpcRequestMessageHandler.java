@@ -34,7 +34,10 @@ public class RpcRequestMessageHandler extends SimpleChannelInboundHandler<RpcReq
         } catch (Exception e) {
             e.printStackTrace();
             // 调用异常
-            response.setExceptionValue(e);
+            //response.setExceptionValue(e);
+            // 调用异常，防止返回太多异常给客户端，导致客户端的ProcotolFrameDecoder方法报返回消息过长的异常
+            String msg = e.getCause().getMessage();
+            response.setExceptionValue(new Exception("远程调用出错:" + msg));
         }
         // 返回结果
         ctx.writeAndFlush(response);

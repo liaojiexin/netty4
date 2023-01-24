@@ -34,13 +34,13 @@ public class RpcClientManager {
     public static <T> T getProxyService(Class<T> serviceClass) {
         ClassLoader loader = serviceClass.getClassLoader();
         Class<?>[] interfaces = new Class[]{serviceClass};
-        //                                                            sayHello  "张三"
+        //        调用 sayHello  "张三" 后就会进入到这个代理方法里面
         Object o = Proxy.newProxyInstance(loader, interfaces, (proxy, method, args) -> {
             // 1. 将方法调用转换为 消息对象
-            int sequenceId = SequenceIdGenerator.nextId();
+            int sequenceId = SequenceIdGenerator.nextId();  //计数器，id自动加一
             RpcRequestMessage msg = new RpcRequestMessage(
                     sequenceId,
-                    serviceClass.getName(),
+                    serviceClass.getName(), //接口类名
                     method.getName(),
                     method.getReturnType(),
                     method.getParameterTypes(),
@@ -73,7 +73,7 @@ public class RpcClientManager {
     private static Channel channel = null;
     private static final Object LOCK = new Object();
 
-    // 获取唯一的 channel 对象
+    // 获取唯一的 channel 对象 ，这里用了双重锁
     public static Channel getChannel() {
         if (channel != null) {
             return channel;
@@ -107,6 +107,7 @@ public class RpcClientManager {
         });
         try {
             channel = bootstrap.connect("localhost", 8080).sync().channel();
+            //因为上面这里只是初始化initChannel，别的地方调用完才能关闭，所以这里不能用同步的方式来关闭。
             channel.closeFuture().addListener(future -> {
                 group.shutdownGracefully();
             });

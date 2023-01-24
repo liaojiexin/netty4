@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 
 @Slf4j
-@ChannelHandler.Sharable
+@ChannelHandler.Sharable    //这里虽然有用到PROMISES状态记录，但是仍然可以用Sharable，因为ConcurrentHashMap是线程安全的
 public class RpcResponseMessageHandler extends SimpleChannelInboundHandler<RpcResponseMessage> {
 
     //                       序号      用来接收结果的 promise 对象
